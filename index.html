@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overpowered Calculator</title>
     <style>
-        /* 🔥 Background */
+        /* 🔥 Default Dark Mode Theme */
+        :root {
+            --bg-color: #1a1a2e;
+            --container-bg: rgba(255, 255, 255, 0.1);
+            --text-color: white;
+            --input-bg: rgba(255, 255, 255, 0.3);
+            --button-bg: linear-gradient(90deg, #ff512f, #dd2476);
+            --button-hover: linear-gradient(90deg, #ff416c, #ff4b2b);
+        }
+
+        /* 🌞 Light Mode */
+        .light-mode {
+            --bg-color: #f3f3f3;
+            --container-bg: rgba(0, 0, 0, 0.1);
+            --text-color: black;
+            --input-bg: rgba(0, 0, 0, 0.2);
+            --button-bg: linear-gradient(90deg, #36d1dc, #5b86e5);
+            --button-hover: linear-gradient(90deg, #4facfe, #00f2fe);
+        }
+
+        /* 🌌 Background */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -14,20 +34,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: white;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.5s, color 0.5s;
         }
 
         /* ✨ Glassy Container */
         .container {
-            width: 320px;
+            width: 340px;
             padding: 20px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--container-bg);
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.5s;
         }
 
         /* 🎨 Inputs & Select Box */
@@ -40,21 +62,33 @@
             border: none;
             outline: none;
             text-align: center;
-            background: rgba(255, 255, 255, 0.3); /* Fixes dropdown visibility */
-            color: white;
+            background: var(--input-bg);
+            color: var(--text-color);
             cursor: pointer;
+            transition: background 0.5s, color 0.5s, transform 0.2s;
+        }
+
+        /* 🛠 Placeholder Visibility */
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 🎬 Animations */
+        input:focus, select:focus {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.5);
         }
 
         /* Fix dropdown option visibility */
         select option {
-            background: #16213e; /* Dark solid background */
-            color: white;
+            background: var(--bg-color);
+            color: var(--text-color);
         }
 
         /* 🚀 Button */
         button {
             cursor: pointer;
-            background: linear-gradient(90deg, #ff512f, #dd2476);
+            background: var(--button-bg);
             color: white;
             border: none;
             padding: 12px;
@@ -66,7 +100,7 @@
         }
 
         button:hover {
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            background: var(--button-hover);
             transform: scale(1.05);
         }
 
@@ -78,10 +112,33 @@
             display: inline-block;
             width: 85%;
             font-size: 18px;
+            transition: background 0.5s;
+        }
+
+        /* 🌗 Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 50px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--button-hover);
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌗 Toggle Mode</button>
 
     <div class="container">
         <h2>⚡ Overpowered Calculator ⚡</h2>
@@ -141,38 +198,15 @@
                 result = Math.tan(num1 * (Math.PI / 180));
             } else if (operation === "convert") {
                 let conversionType = document.getElementById("conversionType").value;
-                if (conversionType === "metersToKm") {
-                    result = num1 / 1000 + " km";
-                } else if (conversionType === "celsiusToFahrenheit") {
-                    result = (num1 * 9/5) + 32 + " °F";
-                }
+                result = conversionType === "metersToKm" ? (num1 / 1000) + " km" : (num1 * 9/5) + 32 + " °F";
             }
 
-            if (typeof result === "number" && Number.isInteger(result)) {
-                result = result.toFixed(0);
-            }
-            
             document.getElementById("result").innerText = "Result: " + result;
         }
 
-        document.getElementById("operation").addEventListener("change", function() {
-            let selectedOp = this.value;
-            let unitDiv = document.getElementById("unitConversion");
-            let num2Field = document.getElementById("num2");
-
-            if (selectedOp === "sqrt" || selectedOp === "sin" || selectedOp === "cos" || selectedOp === "tan") {
-                num2Field.style.display = "none";
-            } else {
-                num2Field.style.display = "inline";
-            }
-
-            if (selectedOp === "convert") {
-                unitDiv.style.display = "block";
-                num2Field.style.display = "none";
-            } else {
-                unitDiv.style.display = "none";
-            }
-        });
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+        }
     </script>
 
 </body>
