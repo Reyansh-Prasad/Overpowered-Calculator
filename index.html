@@ -5,37 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overpowered Calculator</title>
     <style>
+        /* 🔥 Background */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 20px;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
         }
+
+        /* ✨ Glassy Container */
         .container {
-            width: 300px;
-            margin: auto;
+            width: 320px;
             padding: 20px;
-            border: 2px solid #333;
-            border-radius: 10px;
-            background-color: #f9f9f9;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        input, select, button {
+
+        /* 🎨 Inputs & Select Box */
+        input, select {
             margin: 10px;
-            padding: 8px;
+            padding: 10px;
             width: 80%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
         }
+
+        select {
+            cursor: pointer;
+        }
+
+        /* 🚀 Button */
         button {
             cursor: pointer;
-            background-color: #007bff;
+            background: linear-gradient(90deg, #ff512f, #dd2476);
             color: white;
             border: none;
+            padding: 12px;
+            font-size: 16px;
+            width: 85%;
+            border-radius: 6px;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            transform: scale(1.05);
+        }
+
+        /* 🎯 Result Box */
+        h3 {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
             border-radius: 5px;
+            display: inline-block;
+            width: 85%;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
 
-    <h1>⚡ Overpowered Calculator ⚡</h1>
     <div class="container">
+        <h2>⚡ Overpowered Calculator ⚡</h2>
+
         <label for="operation">Choose an operation:</label>
         <select id="operation">
             <option value="add">Addition (+)</option>
