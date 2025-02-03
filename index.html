@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overpowered Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        input, select, button {
+            margin: 10px;
+            padding: 8px;
+            width: 80%;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⚡ Overpowered Calculator ⚡</h1>
+    <div class="container">
+        <label for="operation">Choose an operation:</label>
+        <select id="operation">
+            <option value="add">Addition (+)</option>
+            <option value="subtract">Subtraction (-)</option>
+            <option value="multiply">Multiplication (×)</option>
+            <option value="divide">Division (÷)</option>
+            <option value="sqrt">Square Root (√)</option>
+            <option value="power">Power (^)</option>
+            <option value="sin">Sin</option>
+            <option value="cos">Cos</option>
+            <option value="tan">Tan</option>
+            <option value="convert">Unit Conversion</option>
+        </select>
+
+        <input type="number" id="num1" placeholder="Enter first number">
+        <input type="number" id="num2" placeholder="Enter second number (if needed)">
+        
+        <div id="unitConversion" style="display: none;">
+            <select id="conversionType">
+                <option value="metersToKm">Meters to Kilometers</option>
+                <option value="celsiusToFahrenheit">Celsius to Fahrenheit</option>
+            </select>
+        </div>
+
+        <button onclick="calculate()">Calculate</button>
+        <h3 id="result">Result: </h3>
+    </div>
+
+    <script>
+        function calculate() {
+            let operation = document.getElementById("operation").value;
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let result;
+
+            if (operation === "add") {
+                result = num1 + num2;
+            } else if (operation === "subtract") {
+                result = num1 - num2;
+            } else if (operation === "multiply") {
+                result = num1 * num2;
+            } else if (operation === "divide") {
+                result = num2 !== 0 ? num1 / num2 : "Error: Cannot divide by zero";
+            } else if (operation === "sqrt") {
+                result = Math.sqrt(num1);
+            } else if (operation === "power") {
+                result = Math.pow(num1, num2);
+            } else if (operation === "sin") {
+                result = Math.sin(num1 * (Math.PI / 180));
+            } else if (operation === "cos") {
+                result = Math.cos(num1 * (Math.PI / 180));
+            } else if (operation === "tan") {
+                result = Math.tan(num1 * (Math.PI / 180));
+            } else if (operation === "convert") {
+                let conversionType = document.getElementById("conversionType").value;
+                if (conversionType === "metersToKm") {
+                    result = num1 / 1000 + " km";
+                } else if (conversionType === "celsiusToFahrenheit") {
+                    result = (num1 * 9/5) + 32 + " °F";
+                }
+            }
+
+            if (typeof result === "number" && Number.isInteger(result)) {
+                result = result.toFixed(0);
+            }
+            
+            document.getElementById("result").innerText = "Result: " + result;
+        }
+
+        document.getElementById("operation").addEventListener("change", function() {
+            let selectedOp = this.value;
+            let unitDiv = document.getElementById("unitConversion");
+            let num2Field = document.getElementById("num2");
+
+            if (selectedOp === "sqrt" || selectedOp === "sin" || selectedOp === "cos" || selectedOp === "tan") {
+                num2Field.style.display = "none";
+            } else {
+                num2Field.style.display = "inline";
+            }
+
+            if (selectedOp === "convert") {
+                unitDiv.style.display = "block";
+                num2Field.style.display = "none";
+            } else {
+                unitDiv.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
